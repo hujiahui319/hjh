@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--    <script src="webjars/jquery-1.9.1.min.js"></script>
+    <script src="webjars/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap.min.css" />-->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+
+    <!-- Latest compiled and minified Locales -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<br>
+<div class="container" >
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><br>
+
+<div ><table id="tableList" class="table table-hover"></table> </div>
+</body>
+</html>
+
+<script>
+    $('#tableList').bootstrapTable({
+        columns: [{
+            field: 'ubIdN',
+            title: '序号',
+        }, {
+            field: 'ubNickNameV',
+            title: '昵称',
+        }, {
+            field: 'ubNameV',
+            title: '姓名',
+        },{
+            field: 'ubMpV',
+            title: '手机号',
+        },{
+            field: 'ubLevelC',
+            title: '用户等级',
+        }],//页面需要展示的列，后端交互对象的属性
+        dataType : "json",
+        pagination: true,  //开启分页
+        sidePagination: 'server',//服务器端分页
+        pageNumber: 1,//默认加载页
+        pageSize: 20,//每页数据
+        pageList: [20, 50, 100, 500],//可选的每页数据
+        dataField : "data",
+
+        responseHandler : function(res) {
+            //在ajax获取到数据，渲染表格之前，修改数据源
+            //console.log(data);
+            debugger;
+            return res;
+        },
+        //  queryParams: function (params) {
+          /*  return {
+                startDate: $("#txtStartDate").val(),
+                endDate: $("#txtEndDate").val(),
+                merName: $("#txtMerName").val(),
+                pageSize: params.limit,
+                offset: params.offset
+            }*/
+       // },//请求服务器数据时的参数
+        url: '/list' //服务器数据的加载地址
+    });
+</script>
